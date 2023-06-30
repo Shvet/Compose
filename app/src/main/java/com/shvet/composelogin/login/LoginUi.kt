@@ -29,21 +29,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.shvet.composelogin.R
 import com.shvet.composelogin.login.viewModel.LoginViewModel
 import com.shvet.composelogin.ui.theme.ComposeLoginTheme
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginUi(
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel = viewModel(),
+    isLoggedIn: Boolean,
+    viewModel: LoginViewModel = hiltViewModel(),
     goToDashBoard: () -> Unit,
 ) {
+    if (isLoggedIn) {
+        goToDashBoard.invoke()
+    }
     val snackbarHostState = remember { SnackbarHostState() }
     if (viewModel.isUserLoggedIn) {
         LaunchedEffect(Unit) {
@@ -92,8 +95,8 @@ fun LoginUi(
                                 focusedBorderColor = Color.Blue,
                                 focusedTextColor = Color.Black
                             ),
-                            label = { Text(text = stringResource(id = R.string.user_name))},
-                            placeholder = { Text(text = stringResource(id = R.string.enter_user_name))}
+                            label = { Text(text = stringResource(id = R.string.user_name)) },
+                            placeholder = { Text(text = stringResource(id = R.string.enter_user_name)) }
                         )
                         AnimatedVisibility(visible = viewModel.userNameInput.isError) {
                             Text(
@@ -122,8 +125,8 @@ fun LoginUi(
                                 focusedBorderColor = Color.Blue,
                                 focusedTextColor = Color.Black
                             ),
-                            label = { Text(text = stringResource(id = R.string.user_password))},
-                            placeholder = { Text(text = stringResource(id = R.string.enter_user_password))}
+                            label = { Text(text = stringResource(id = R.string.user_password)) },
+                            placeholder = { Text(text = stringResource(id = R.string.enter_user_password)) }
                         )
                         AnimatedVisibility(visible = viewModel.userPasswordInput.isError) {
                             Text(

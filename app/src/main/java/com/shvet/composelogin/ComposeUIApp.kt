@@ -1,5 +1,6 @@
 package com.shvet.composelogin
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ fun ComposeUIApp() {
     val isLoggedIn by mainViewModel.isLoggedIn.collectAsStateWithLifecycle()
     val userName by mainViewModel.userName.collectAsStateWithLifecycle()
     val userPassword by mainViewModel.userPassword.collectAsStateWithLifecycle()
+    Log.e("IsLoggedIn", " $isLoggedIn")
     ComposeLoginTheme {
         ComposeNavHost(
             modifier = Modifier,
